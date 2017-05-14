@@ -26,9 +26,11 @@ public class SetListClasses {
                     if (requirementses.get(j).getTypeSubject() == typeSubject) {
                         requirements = requirementses.get(j).getRequirment();
                         reqType = requirementses.get(j).getTypeSubject();
+                        break;
                     }
+
                 }
-                break;
+
             }
 
         Element sch;
