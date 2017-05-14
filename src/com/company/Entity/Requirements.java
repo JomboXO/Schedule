@@ -1,13 +1,13 @@
 package com.company.Entity;
 
 /**
- * Created by Татьяна on 13.05.2017.
+ * Created by пїЅпїЅпїЅпїЅпїЅпїЅпїЅ on 13.05.2017.
  */
 public class Requirements {
     private String subject;
 //    private String teacher;
-    private int typeSubject; // 0 - лекция; 1 - практика
-    private int requirment;  // 1 - lecture class; 2 computer class; 3 practice class; 4 - проектор; 13 - no requirment
+    private int typeSubject; // 0 - lecture; 1 - practice 2- lab
+    private int requirment;  // 1 - lecture class; 2 computer class; 3 practice class; 4 - РїСЂРѕРµРєС‚РѕСЂ; 13 - no requirment
 
     public Requirements(String subject, /*String teacher,*/ int typeSubject, int requirment) {
         this.subject = subject;

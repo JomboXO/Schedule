@@ -1,16 +1,15 @@
 package com.company.Entity;
 
 /**
- * Created by Татьяна on 13.05.2017.
+ * Created by пїЅпїЅпїЅпїЅпїЅпїЅпїЅ on 13.05.2017.
  */
 public class Load {
     private String subject;
-    private int flow; // номер потока
-    private double load; //количество занятий в неделю
-    private int typeSubject; // 0 - лекция ; 1 - практика, 2 - lab
+    private int flow; // РЅРѕРјРµСЂ РїРѕС‚РѕРєР°
+    private double load; //РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РЅСЏС‚РёР№ РІ РЅРµРґРµР»СЋ
+    private int typeSubject; // 0 - Р»РµРєС†РёСЏ ; 1 - РїСЂР°РєС‚РёРєР°, 2 - lab
     private String teacher;
-   // private Requirements requirment; //проектор, лекционная аудитория, компьютерный класс, лаборатория...
-
+    // private Requirements requirment; //РїСЂРѕРµРєС‚РѕСЂ, Р»РµРєС†РёРѕРЅРЅР°СЏ Р°СѓРґРёС‚РѕСЂРёСЏ, РєРѕРјРїСЊСЋС‚РµСЂРЅС‹Р№ РєР»Р°СЃСЃ, Р»Р°Р±РѕСЂР°С‚РѕСЂРёСЏ...
 
     public Load(String subject, int flow, double load, int typeSubject, String teacher) {
         this.subject = subject;

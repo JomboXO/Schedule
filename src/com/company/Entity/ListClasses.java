@@ -5,9 +5,9 @@ package com.company.Entity;
  */
 public class ListClasses {
     private Element element;
-    private float S;
+    private double S;
 
-    public ListClasses(Element element, float s) {
+    public ListClasses(Element element, double s) {
         this.element = element;
         S = s;
     }
@@ -20,16 +20,16 @@ public class ListClasses {
         this.element = element;
     }
 
-    public float getS() {
+    public double getS() {
         return S;
     }
 
-    public void setS(float s) {
+    public void setS(double s) {
         S = s;
     }
 
     @Override
     public String toString(){
-        return element.getTeacher() + "   " + element.getSubject() + "   " + element.getFlow().getNumberFlow() + "   " + element.getClassroom().getTypeClassroom() + "   "+ element.getTypeSubject() +"   "+ S;
+        return element.getTeacher() + "   " + element.getSubject() + "   " + element.getFlow() + "   " + element.getClassroom().getTypeClassroom() + "   "+ element.getTypeSubject() +"   "+ S;
     }
 }

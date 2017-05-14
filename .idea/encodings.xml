@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/com/company/Entity/Classroom.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/company/Entity/Element.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/company/Entity/Flow.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/company/Entity/Group.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/company/Entity/ListClasses.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/company/Entity/Load.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/company/Entity/Requirements.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/company/Entity/TempElem.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/company/Entity/Timeslot.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/company/Main.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/company/SetListClasses.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/com/company/XMLParser.java" charset="UTF-8" />
+  </component>
+</project>

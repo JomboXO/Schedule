@@ -1,16 +1,16 @@
 package com.company.Entity;
 
 /**
- * Created by Татьяна on 14.05.2017.
+ * Created by пїЅпїЅпїЅпїЅпїЅпїЅпїЅ on 14.05.2017.
  */
 public class Element {
     private String teacher;
     private Classroom classroom;
     private String subject;
-    private Flow flow;
+    private int flow;
     private int typeSubject;
 
-    public Element(String teacher, Classroom classroom, String subject, Flow flow, int typeSubject) {
+    public Element(String teacher, Classroom classroom, String subject, int flow, int typeSubject) {
         this.teacher = teacher;
         this.classroom = classroom;
         this.subject = subject;
@@ -28,11 +28,11 @@ public class Element {
     }
 
 
-    public Flow getGroup() {
+    public int getGroup() {
         return flow;
     }
 
-    public void setGroup(Flow flow) {
+    public void setGroup(int flow) {
         this.flow = flow;
     }
 
@@ -62,35 +62,35 @@ public class Element {
 
     @Override
     public String toString() {
-        return teacher + "   " + subject + "   " + flow.getNumberFlow() + "   " + classroom.getNumberClassroom() + "   " + typeSubject;
+        return teacher + "   " + subject + "   " + flow + "   " + classroom.getNumberClassroom() + "   " + typeSubject;
     }
 
     public boolean equals(Object obj) {
         if (obj == this)
             return true;
-        /* obj ссылается на null */
+        /* obj СЃСЃС‹Р»Р°РµС‚СЃСЏ РЅР° null */
 
         if (obj == null)
             return false;
-         /* Удостоверимся, что ссылки имеют тот же самый тип */
+/* РЈРґРѕСЃС‚РѕРІРµСЂРёРјСЃСЏ, С‡С‚Рѕ СЃСЃС‹Р»РєРё РёРјРµСЋС‚ С‚РѕС‚ Р¶Рµ СЃР°РјС‹Р№ С‚РёРї */
 
         if (!(getClass() == obj.getClass()))
             return false;
         else {
             Element tmp = (Element) obj;
             if (tmp.typeSubject == this.typeSubject && tmp.teacher.equals(this.teacher)
-                    && tmp.subject.equals(this.subject) && tmp.flow.equals(this.flow))
+                    && tmp.subject.equals(this.subject) && tmp.flow == this.flow)
                 return true;
             else
                 return false;
         }
     }
 
-    public Flow getFlow() {
+    public int getFlow() {
         return flow;
     }
 
-    public void setFlow(Flow flow) {
+    public void setFlow(int flow) {
         this.flow = flow;
     }
 }

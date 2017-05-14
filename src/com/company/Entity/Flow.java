@@ -3,7 +3,7 @@ package com.company.Entity;
 import java.util.List;
 
 /**
- * Created by Татьяна on 13.05.2017.
+ * Created by пїЅпїЅпїЅпїЅпїЅпїЅпїЅ on 13.05.2017.
  */
 public class Flow {
     private int numberFlow;
@@ -34,11 +34,9 @@ public class Flow {
     public boolean equals(Object obj) {
         if (obj == this)
             return true;
-        /* obj ссылается на null */
 
         if(obj == null)
             return false;
-         /* Удостоверимся, что ссылки имеют тот же самый тип */
 
         if(!(getClass() == obj.getClass()))
             return false;

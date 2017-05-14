@@ -21,7 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by Татьяна on 13.05.2017.
+ * Created by РўР°С‚СЊСЏРЅР° on 13.05.2017.
  */
 public class XMLParser {
     private static final String FILENAME = "src/input.xml";
@@ -29,7 +29,7 @@ public class XMLParser {
 
     public static void goLoads(List<Load> groups, List<Flow> flows) {
         try {
-// Строим объектную модель исходного XML файла
+// РЎС‚СЂРѕРёРј РѕР±СЉРµРєС‚РЅСѓСЋ РјРѕРґРµР»СЊ РёСЃС…РѕРґРЅРѕРіРѕ XML С„Р°Р№Р»Р°
             final File xmlFile = new File(System.getProperty("user.dir")
                     + File.separator + FILENAME);
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -42,7 +42,7 @@ public class XMLParser {
             int numberFlow, hoursLec, hoursLab, hoursPrac, numberFlowForTeacher, hoursLecTeacher, hoursLabTeacher, hoursPracTeacher, numFlow;
             String teacher = null;
             for (int i = 0; i < nodeList.getLength(); i++) {
-                // Выводим информацию по каждому из найденных элементов
+                // Р’С‹РІРѕРґРёРј РёРЅС„РѕСЂРјР°С†РёСЋ РїРѕ РєР°Р¶РґРѕРјСѓ РёР· РЅР°Р№РґРµРЅРЅС‹С… СЌР»РµРјРµРЅС‚РѕРІ
                 Node node = nodeList.item(i);
                 if (Node.ELEMENT_NODE == node.getNodeType()) {
                     Element element = (Element) node;

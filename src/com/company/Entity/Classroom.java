@@ -1,24 +1,24 @@
 package com.company.Entity;
 
 /**
- * Created by Татьяна on 14.05.2017.
+ * Created by пїЅпїЅпїЅпїЅпїЅпїЅпїЅ on 14.05.2017.
  */
 public class Classroom {
     private int numberClassroom;
-    private int typeClassroom; // 1 - lecture; 2 - computer class; 3 - practice class
-    private int requirment; //4 - есть проектор
+    private int typeClassroom; // 0 - lecture; 2 - computer class; 3 - practice class
+    private int requirment; //4 - РµСЃС‚СЊ РїСЂРѕРµРєС‚РѕСЂ
 
-    public Classroom(int numberClassroom, int typeClassroom) {
+    public Classroom(int requirment, int typeClassroom) {
+        this.requirment = requirment;
+        this.typeClassroom = typeClassroom;
+    }
+
+    /*СѓСЃС‚Р°РЅР°РІР»РёРІР°РµРј СЃСЋРґР° РЅРѕРјРµСЂ С‚РёРїР°, С‡С‚РѕР±С‹ РїРѕС‚РѕРј РїРѕ С‚РёРїСѓ Р°СѓРґРёС‚РѕСЂРёРё РѕРїСЂРµРґРµР»РёС‚СЊ РїРѕРґС…РѕРґСЏС‰СЋСЋ*/
+    public Classroom(int numberClassroom) {
         this.numberClassroom = numberClassroom;
-        this.typeClassroom = typeClassroom;
     }
 
-    /*устанавливаем сюда номер типа, чтобы потом по типу аудитории определить подходящюю*/
-    public Classroom(int typeClassroom) {
-        this.typeClassroom = typeClassroom;
-    }
-
-    public Classroom(int requirment, int typeClassroom, int numberClassroom) {
+    public Classroom( int numberClassroom, int typeClassroom,int requirment) {
         this.requirment = requirment;
         this.typeClassroom = typeClassroom;
         this.numberClassroom = numberClassroom;
@@ -51,11 +51,11 @@ public class Classroom {
     public boolean equals(Object obj) {
         if (obj == this)
             return true;
-        /* obj ссылается на null */
+        /* obj СЃСЃС‹Р»Р°РµС‚СЃСЏ РЅР° null */
 
         if (obj == null)
             return false;
-         /* Удостоверимся, что ссылки имеют тот же самый тип */
+         /* РЈРґРѕСЃС‚РѕРІРµСЂРёРјСЃСЏ, С‡С‚Рѕ СЃСЃС‹Р»РєРё РёРјРµСЋС‚ С‚РѕС‚ Р¶Рµ СЃР°РјС‹Р№ С‚РёРї */
 
         if (!(getClass() == obj.getClass()))
             return false;
