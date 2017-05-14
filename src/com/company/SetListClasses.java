@@ -52,7 +52,9 @@ public class SetListClasses {
             }
 
             Element sch;
-            for (int k = 0; k < groups.get(i).getLoad(); k++) {
+            double load = groups.get(i).getLoad();
+            if (load == 0.5) load = 1;
+            for (int k = 0; k < load; k++) {
                 sch = new Element(teacher, (new Classroom(reqTypeClass)), subject, flow, typeSubject);
                 double a = getClassrooms(requirements, reqType, classroom);
                 double p = getTeachersLoad(teacher, groups);

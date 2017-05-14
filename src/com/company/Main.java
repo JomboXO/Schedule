@@ -20,7 +20,7 @@ public class Main {
     static List<ListClasses> listClasses;
     static Map<Timeslot, Element> elem = new HashMap<Timeslot, Element>();
     static List<TempElem> tempElems;
-    final static int p = 8, l = 6;
+    final static int p = 8, l = 12;
 
     public static void main(String[] args) {
         groups = new ArrayList<>();
@@ -67,29 +67,43 @@ public class Main {
     private static void doSchedule() {
         double k = 0, t = 0, R = 0;
         for (ListClasses list : listClasses) {
-          //  System.out.println(list.getElement().toString() + "--------------------------------------------------------------------------------------");
+            //  System.out.println(list.getElement().toString() + "--------------------------------------------------------------------------------------");
             boolean equals = false;
             tempElems.clear();
             List<Element> element = new ArrayList<>();
             Timeslot key;
             for (int i = 0; i < p; i++) {
-                for (int n = 0; n < l; n++) {
+                for (int n = 0; n < (int) l / 2; n++) {
                     element.clear();
                     key = new Timeslot(n, i);
-                   // System.out.println("Process for key " + key.toString());
+                    // System.out.println("Process for key " + key.toString());
                     element.addAll(getElem(key));
-                   // System.out.println("Found " + element.size() + " elements");
-                    /*если тип предмета практика или лаба, а нагрузка 2 раза в неделю - ставим подряд*/
+                    // System.out.println("Found " + element.size() + " elements");
+                    /*если тип предмета практика или лаба, то
+                    если нагрузка 2 раза в неделю, то ставим подряд, добавляем во вторую неделю на то же время
+                    если нагрузка 1 раз в неделю, но практика или лаба и каждую неделю, тогда ставим подряд и записываем только в одну неделю
+                    если нагрузка 1 раз в две недеи (не знаю как это показать), тогда один раз будет в одной неделе
+                     а нагрузка 2 раза в неделю - ставим подряд
+                    * */
                     if (!element.isEmpty()) {
+                        double checkLoad = 0;
                         for (Element element1 : element) {
-                            if (thisIsNotThree(element1, listClasses)) {
-                                if (checkEquals(element1, list.getElement())) {
-                                   // System.out.println("Same class found");
-                                    equals = true;
-                                    tempElems.clear();
-                                    tempElems.add(new TempElem(k, new Element(element1.getTeacher(), element1.getClassroom(), element1.getSubject(), element1.getGroup(), element1.getTypeSubject()), ++i, n));
-                                    break;
-                                }
+                            if (thisIsThreeLoad(element1, listClasses)) {
+                                checkLoad = 3;
+                            } else if (thisIsTwoLoad(element1, listClasses)) {
+                                checkLoad = 2;
+                            } else if (thisIsOneLoad(element1, listClasses)) {
+                                checkLoad = 1;
+                            } else if (thisIsHalfLoad(element1, listClasses)) {
+                                checkLoad = 0.5;
+                            }
+
+                            if (checkEquals(element1, list.getElement())) {
+                                // System.out.println("Same class found");
+                                equals = true;
+                                tempElems.clear();
+                                tempElems.add(new TempElem(k, new Element(element1.getTeacher(), element1.getClassroom(), element1.getSubject(), element1.getGroup(), element1.getTypeSubject()), ++i, n));
+                                break;
                             }
                         }
                     }
@@ -101,8 +115,9 @@ public class Main {
                             for (Element element1 : element) {
                                 k = checkOverlap(element1, list.getElement(), classroom.get(h));
                                 if (k == 0 || k == 1) {
-                                   // System.out.println("n:" + n + ", i:" + i + ", k:" + k + ", class1:" + element1.getClassroom().getNumberClassroom() + ", h:" + classroom.get(h).getNumberClassroom());
-                                    break;}
+                                    // System.out.println("n:" + n + ", i:" + i + ", k:" + k + ", class1:" + element1.getClassroom().getNumberClassroom() + ", h:" + classroom.get(h).getNumberClassroom());
+                                    break;
+                                }
                             }
                         } else k = 10;
                         if (k == 0) break;
@@ -168,6 +183,50 @@ public class Main {
             }
         }
     }
+
+    private static boolean thisIsHalfLoad(Element element1, List<ListClasses> listClasses) {
+
+        for (Load loads : groups){
+            for (ListClasses listClasses1 : listClasses) {
+                if (loads.getFlow() == listClasses1.getElement().getFlow() && loads.getTeacher() == listClasses1.getElement().getTeacher()
+                        && loads.getSubject() == listClasses1.getElement().getSubject() && loads.getTypeSubject() == listClasses1.getElement().getTypeSubject()){
+                    if (loads.getLoad() == 0.5){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean thisIsOneLoad(Element element1, List<ListClasses> listClasses) {
+        int i = 0;
+        for (ListClasses listClasses1 : listClasses) {
+            if (listClasses1.getElement().equals(element1)) i++;
+        }
+        if (i == 1) return true;
+        else return false;
+    }
+
+    private static boolean thisIsTwoLoad(Element element1, List<ListClasses> listClasses) {
+        int i = 0;
+        for (ListClasses listClasses1 : listClasses) {
+            if (listClasses1.getElement().equals(element1)) i++;
+        }
+        if (i == 2) return true;
+        else return false;
+    }
+
+    private static boolean thisIsThreeLoad(Element element1, List<ListClasses> listClasses) {
+        int i = 0;
+        for (ListClasses listClasses1 : listClasses) {
+            if (listClasses1.getElement().equals(element1)) i++;
+        }
+        if (i == 3) return true;
+        else return false;
+    }
+
+
     /*Проверка "перекрытия": если в это же время и этот же день уже заняты
             преподаватель или группа, тогда возвращаем ноль и прекращаем рассматривать эту аудиторию*/
 // добавить возможность не рассматривать остальные аудитории, если вернет 0
@@ -247,8 +306,6 @@ public class Main {
         }
         return e;
     }
-
-
 
     private static double countClassesForFlow(int n, int fl) {
         int w = 4, j = 0;
