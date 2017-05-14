@@ -20,7 +20,7 @@ public class Main {
     static List<ListClasses> listClasses;
     static Map<Timeslot, Element> elem = new HashMap<Timeslot, Element>();
     static List<TempElem> tempElems;
-    final static int p = 8, l = 12;
+    final static int p = 8, l = 6;
 
     public static void main(String[] args) {
         groups = new ArrayList<>();
@@ -28,6 +28,7 @@ public class Main {
         flows = new ArrayList<>();
         listClasses = new ArrayList<ListClasses>();
         classroom = new ArrayList<Classroom>();
+        tempElems = new ArrayList<TempElem>();
 
         XMLParser.goLoads(groups, flows);
 
@@ -45,27 +46,28 @@ public class Main {
         requirementses.add(new Requirements("Программирование", 2, 2));
         requirementses.add(new Requirements("Языки и парадигмы программирования", 2, 2));
 
-        classroom.add(new Classroom(302, 0, 4));
-        classroom.add(new Classroom(359, 0, 4));
-        classroom.add(new Classroom(285, 0, 4));
-        classroom.add(new Classroom(403, 0, 4));
-        classroom.add(new Classroom(466, 0, 4));
+        classroom.add(new Classroom(40, 302));
+        classroom.add(new Classroom(40, 359));
+        classroom.add(new Classroom(40, 285));
+        classroom.add(new Classroom(40, 403));
+        classroom.add(new Classroom(40, 466));
 
-        classroom.add(new Classroom(303, 2, 4));
-        classroom.add(new Classroom(304, 2, 0));
-        classroom.add(new Classroom(305, 2, 0));
-        classroom.add(new Classroom(306, 2, 0));
+        classroom.add(new Classroom(24, 303));
+        classroom.add(new Classroom(2, 304));
+        classroom.add(new Classroom(2, 305));
+        classroom.add(new Classroom(2, 306));
 
         SetListClasses.getListClasses(requirementses, groups, classroom, listClasses, flows);
         sortByS(listClasses);
-        //doSchedule();
-        printElements();
+        doSchedule();
+       // printElements();
 
     }
 
     private static void doSchedule() {
         double k = 0, t = 0, R = 0;
         for (ListClasses list : listClasses) {
+          //  System.out.println(list.getElement().toString() + "--------------------------------------------------------------------------------------");
             boolean equals = false;
             tempElems.clear();
             List<Element> element = new ArrayList<>();
@@ -74,58 +76,70 @@ public class Main {
                 for (int n = 0; n < l; n++) {
                     element.clear();
                     key = new Timeslot(n, i);
+                   // System.out.println("Process for key " + key.toString());
                     element.addAll(getElem(key));
-
-                    /*if (!element.isEmpty()) {
+                   // System.out.println("Found " + element.size() + " elements");
+                    /*если тип предмета практика или лаба, а нагрузка 2 раза в неделю - ставим подряд*/
+                    if (!element.isEmpty()) {
                         for (Element element1 : element) {
-                            if (checkEquals(element1, list.getElement())){
-                                equals = true;
-                                tempElems.clear();
-                                tempElems.add(new TempElem(k, new Element(element1.getTeacher(), element1.getClassroom(), element1.getSubject(),element1.getGroup(), element1.getTypeSubject()), ++i, n));
-                                break;
+                            if (thisIsNotThree(element1, listClasses)) {
+                                if (checkEquals(element1, list.getElement())) {
+                                   // System.out.println("Same class found");
+                                    equals = true;
+                                    tempElems.clear();
+                                    tempElems.add(new TempElem(k, new Element(element1.getTeacher(), element1.getClassroom(), element1.getSubject(), element1.getGroup(), element1.getTypeSubject()), ++i, n));
+                                    break;
+                                }
                             }
                         }
                     }
-                    if (equals){
+                    if (equals) {
                         break;
-                    }*/
+                    }
                     for (int h = 0; h < classroom.size(); h++) {
                         if (!element.isEmpty()) {
                             for (Element element1 : element) {
                                 k = checkOverlap(element1, list.getElement(), classroom.get(h));
-                                if (k == 0 || k == 1) break;
+                                if (k == 0 || k == 1) {
+                                   // System.out.println("n:" + n + ", i:" + i + ", k:" + k + ", class1:" + element1.getClassroom().getNumberClassroom() + ", h:" + classroom.get(h).getNumberClassroom());
+                                    break;}
                             }
                         } else k = 10;
                         if (k == 0) break;
-                        if (!element.isEmpty()) {
-                            for (Element element1 : element) {
-                                t = checkAud(element1, classroom.get(h), list.getElement());
-                                if (t == 0) {
-                                    while (t == 0 && h < classroom.size()) {
-                                        t = checkAud(element1, classroom.get(h), list.getElement());
-                                        if (h == 3 || t != 0) {
-                                            break;
-                                        } else {
-                                            h++;
-                                        }
-                                    }
-                                }
-                                if (t == 0) break;
-                            }
-                        } else {
-                            t = checkAud(null, classroom.get(h), list.getElement());
-                            if (t == 0) {
-                                while (t == 0 && h < classroom.size()) {
-                                    t = checkAud(null, classroom.get(h), list.getElement());
-                                    if (h == 3 || t != 0) {
-                                        break;
-                                    } else {
-                                        h++;
-                                    }
-                                }
-                            }
-                        }
-                        if (t == 0) break;
+                        if (k == 1) continue;
+
+                        if (checkAud(null, classroom.get(h), list.getElement()) == 0) continue;
+
+
+//                        if (!element.isEmpty()) {
+//                            for (Element element1 : element) {
+//                                t = checkAud(element1, classroom.get(h), list.getElement());
+//                                if (t == 0) {
+//                                    while (t == 0 && h < classroom.size()) {
+//                                        t = checkAud(element1, classroom.get(h), list.getElement());
+//                                        if (h == classroom.size() - 1 || t != 0) {
+//                                                break;
+//                                        } else {
+//                                            h++;
+//                                        }
+//                                    }
+//                                }
+//                                if (t == 0) break;
+//                            }
+//                        } else {
+//                            t = checkAud(null, classroom.get(h), list.getElement());
+//                            if (t == 0) {
+//                                while (t == 0 && h < classroom.size()) {
+//                                    t = checkAud(null, classroom.get(h), list.getElement());
+//                                    if (h == classroom.size() - 1 || t != 0) {
+//                                        break;
+//                                    } else {
+//                                        h++;
+//                                    }
+//                                }
+//                            }
+//                        }
+                        //if (t == 0) break;
                         k = k + t;
                         t = checkWindowForStudens(n, i, list.getElement());
                         k = k + t;
@@ -144,54 +158,18 @@ public class Main {
             }
             if (equals) {
                 elem.put(new Timeslot(tempElems.get(0).getN(), tempElems.get(0).getI()), tempElems.get(0).getElement());
+                System.out.println(tempElems.get(0).getN() + " " + tempElems.get(0).getI() + " " + tempElems.get(0).getElement().toString());
             } else {
                 //здесь находим самый большой R и записываем в element занятие
                 sortByR(tempElems);
                 elem.put(new Timeslot(tempElems.get(0).getN(), tempElems.get(0).getI()), tempElems.get(0).getElement());
+                System.out.println(tempElems.get(0).getN() + " " + tempElems.get(0).getI() + " " + tempElems.get(0).getElement().toString());
 
             }
         }
     }
-
-    private static double checkAud(Element element, Classroom classroom, Element listElement) {
-        int w = 10;
-        /* Проверка, что аудитория, которую мы передали, подходит по параметру и может рассматриваться
-        * */
-        if (listElement.getClassroom().getTypeClassroom() == 13) {/* тогда можно использовать любую аудиторию*/
-            return 1 * w;
-        } else if (listElement.getClassroom().getTypeClassroom() == classroom.getTypeClassroom()) { /* по типу совпадают, значит подходит.
-                                                                                (в element.classroom.typeClassroom хранится
-                                                                                 рекомендация, какого типа должна быть аудитория)*/
-            return 1 * w;
-
-        } else return 0;
-    }
-
-    private static boolean checkEquals(Element element1, Element element) {
-        if (element1.equals(element)) return true;
-        else return false;
-    }
-
-    private static void printElements() {
-        for (Map.Entry entry : elem.entrySet()) {
-            Timeslot t = (Timeslot) entry.getKey();
-            System.out.println(t.getDayOfWeek() + "  " + t.getNumberClass() + "  " + " Value: " + entry.getValue());
-        }
-        for (ListClasses l : listClasses) {
-            System.out.println(l.toString());
-        }
-    }
-
-    private static List<Element> getElem(Timeslot key) {
-        List<Element> e = new ArrayList<>();
-        for (Map.Entry entry : elem.entrySet()) {
-            if (entry.getKey().equals(key)) e.add((Element) entry.getValue());
-        }
-        return e;
-    }
-
     /*Проверка "перекрытия": если в это же время и этот же день уже заняты
-        преподаватель или группа, тогда возвращаем ноль и прекращаем рассматривать эту аудиторию*/
+            преподаватель или группа, тогда возвращаем ноль и прекращаем рассматривать эту аудиторию*/
 // добавить возможность не рассматривать остальные аудитории, если вернет 0
     private static double checkOverlap(Element element, Element elementList, Classroom classroom) {
         int w = 10;
@@ -206,6 +184,71 @@ public class Main {
         }
         return 1 * w;
     }
+    private static boolean thisIsNotThree(Element element1, List<ListClasses> listClasses) {
+        int i = 0;
+        for (ListClasses listClasses1 : listClasses) {
+            if (listClasses1.getElement().equals(element1)) i++;
+        }
+        if (i == 3) return false;
+        else return true;
+    }
+
+      private static double checkAud(Element element, Classroom classroom, Element listElement) {
+        int w = 10;
+        double ret = 0;
+        if (element!=null && element.getClassroom().getNumberClassroom() == classroom.getNumberClassroom()) ret = 0;
+        else {
+            if (listElement.getClassroom().getTypeClassroom() == 0) {
+                if (classroom.getTypeClassroom() == 40 || classroom.getTypeClassroom() == 0) {
+                    ret = 1 * w;
+                }
+            } else if (listElement.getClassroom().getTypeClassroom() == 2){
+                if (classroom.getTypeClassroom() == 2 || classroom.getTypeClassroom() == 24) {
+                    ret = 1 * w;
+                }
+            } else if (listElement.getClassroom().getTypeClassroom() == 40){
+                if (classroom.getTypeClassroom() == 40) {
+                    ret = 1 * w;
+                }
+            } else if (listElement.getClassroom().getTypeClassroom() == 24) {
+                if (classroom.getTypeClassroom() == 24) {
+                    ret = 1 * w;
+                }
+            }
+//            if (listElement.getClassroom().getTypeClassroom() == classroom.getTypeClassroom()) { /* по типу совпадают, значит подходит.
+//                                                                                (в element.classroom.typeClassroom хранится
+//                                                                                 рекомендация, какого типа должна быть аудитория)*/
+//                ret = 1 * w;
+//
+//            } else ret = 0;
+        }
+        return ret;
+    }
+
+    private static boolean checkEquals(Element element1, Element element) {
+        if (element1.equals(element)) return true;
+        else return false;
+    }
+
+    private static void printElements() {
+        for (Map.Entry entry : elem.entrySet()) {
+            Timeslot t = (Timeslot) entry.getKey();
+            System.out.println(t.getDayOfWeek() + "  " + t.getNumberClass() + "  " + " Value: " + entry.getValue());
+        }
+//        for (ListClasses l : listClasses) {
+//            System.out.println(l.toString());
+//        }
+    }
+
+    private static List<Element> getElem(Timeslot key) {
+        List<Element> e = new ArrayList<>();
+        for (Map.Entry entry : elem.entrySet()) {
+            if (entry.getKey().equals(key)) e.add((Element) entry.getValue());
+        }
+        return e;
+    }
+
+
 
     private static double countClassesForFlow(int n, int fl) {
         int w = 4, j = 0;
@@ -217,12 +260,13 @@ public class Main {
         for (int i = 0; i < p; i++) {
             key = new Timeslot(n, i);
             if (elem.containsKey(key)) element = elem.get(key);
-            for (Flow flow : flows) {
-                if (flow.getNumberFlow() == fl) {
-                    elemFlow.addAll(flow.getGroupList());
-                }
-            }
             if (element != null) {
+                for (Flow flow : flows) {
+                    if (flow.getNumberFlow() == fl) {
+                        elemFlow.addAll(flow.getGroupList());
+                        break;
+                    }
+                }
                 if (element.getFlow() == fl) {
                     for (Flow flow : flows) {
                         if (flow.getNumberFlow() == fl) {
@@ -250,9 +294,12 @@ public class Main {
     }
 
     private static int returnMax(List<Integer> count) {
-        int max = count.get(0);
-        for (Integer i : count) {
-            if (i > max) max = i;
+        int max = 0;
+        if (!count.isEmpty()) {
+            max = count.get(0);
+            for (Integer i : count) {
+                if (i > max) max = i;
+            }
         }
         return max;
     }
@@ -355,6 +402,7 @@ public class Main {
         else k = 1;
         return k * w;
     }
+
     private static void sortByR(List<TempElem> tempElems) {
         for (int i = tempElems.size() - 1; i >= 0; i--) {
             for (int j = 0; j < i; j++) {

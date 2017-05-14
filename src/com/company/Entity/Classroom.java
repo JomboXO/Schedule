@@ -5,21 +5,14 @@ package com.company.Entity;
  */
 public class Classroom {
     private int numberClassroom;
-    private int typeClassroom; // 0 - lecture; 2 - computer class; 3 - practice class
-    private int requirment; //4 - есть проектор
-
-    public Classroom(int requirment, int typeClassroom) {
-        this.requirment = requirment;
+    private int typeClassroom; // 0 - lecture; 2 - computer class; 3 - practice class; 24 - компьютерный класс с проектором
+  // 40 - лекционный с проектором
+    /*устанавливаем сюда номер типа, чтобы потом по типу аудитории определить подходящюю*/
+    public Classroom(int typeClassroom) {
         this.typeClassroom = typeClassroom;
     }
 
-    /*устанавливаем сюда номер типа, чтобы потом по типу аудитории определить подходящюю*/
-    public Classroom(int numberClassroom) {
-        this.numberClassroom = numberClassroom;
-    }
-
-    public Classroom( int numberClassroom, int typeClassroom,int requirment) {
-        this.requirment = requirment;
+    public Classroom(int typeClassroom,int numberClassroom) {
         this.typeClassroom = typeClassroom;
         this.numberClassroom = numberClassroom;
     }
@@ -38,14 +31,6 @@ public class Classroom {
 
     public void setTypeClassroom(int typeClassroom) {
         this.typeClassroom = typeClassroom;
-    }
-
-    public int getRequirment() {
-        return requirment;
-    }
-
-    public void setRequirment(int requirment) {
-        this.requirment = requirment;
     }
 
     public boolean equals(Object obj) {
