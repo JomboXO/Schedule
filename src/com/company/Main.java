@@ -13,7 +13,6 @@ import java.util.Map;
 public class Main {
 
     private static List<Load> groups;
-    //    private static List<Requirements> requirementses;
     private static List<Flow> flows;
     private static List<Requirements> requirementses;
     private static List<Classroom> classroom;
@@ -60,15 +59,18 @@ public class Main {
         SetListClasses.getListClasses(requirementses, groups, classroom, listClasses, flows);
         sortByS(listClasses);
         doSchedule();
-       // printElements();
+        printElements();
 
     }
 
     private static void doSchedule() {
         double k = 0, t = 0, R = 0;
+        int checkLoad, countInWeek, countInDay;
         for (ListClasses list : listClasses) {
-            //  System.out.println(list.getElement().toString() + "--------------------------------------------------------------------------------------");
             boolean equals = false;
+            countInDay = 0;
+            countInWeek = 0;
+            checkLoad = 0;
             tempElems.clear();
             List<Element> element = new ArrayList<>();
             Timeslot key;
@@ -76,28 +78,100 @@ public class Main {
                 for (int n = 0; n < (int) l / 2; n++) {
                     element.clear();
                     key = new Timeslot(n, i);
-                    // System.out.println("Process for key " + key.toString());
                     element.addAll(getElem(key));
-                    // System.out.println("Found " + element.size() + " elements");
                     /*если тип предмета практика или лаба, то
                     если нагрузка 2 раза в неделю, то ставим подряд, добавляем во вторую неделю на то же время
                     если нагрузка 1 раз в неделю, но практика или лаба и каждую неделю, тогда ставим подряд и записываем только в одну неделю
                     если нагрузка 1 раз в две недеи (не знаю как это показать), тогда один раз будет в одной неделе
                      а нагрузка 2 раза в неделю - ставим подряд
                     * */
-                    if (!element.isEmpty()) {
-                        double checkLoad = 0;
-                        for (Element element1 : element) {
-                            if (thisIsThreeLoad(element1, listClasses)) {
-                                checkLoad = 3;
-                            } else if (thisIsTwoLoad(element1, listClasses)) {
-                                checkLoad = 2;
-                            } else if (thisIsOneLoad(element1, listClasses)) {
-                                checkLoad = 1;
-                            } else if (thisIsHalfLoad(element1, listClasses)) {
-                                checkLoad = 0.5;
+                    if (thisIsHalfLoad(list.getElement(), listClasses)) {
+                        checkLoad = 50;
+                    } else {
+                        checkLoad = countLoad(list.getElement(), listClasses);
+                    }
+                    if (element.isEmpty()) {
+                        switch (checkLoad) {
+                            case 3:
+                                countInDay = 1;
+                                countInWeek = 2;
+                                break;
+                            case 2:
+                                if (list.getElement().getTypeSubject() == 0) {
+                                    countInDay = 1;
+                                    countInWeek = 2;
+                                } else {
+                                    countInDay = 2;
+                                    countInWeek = 2;
+                                }
+                                break;
+                            case 1:
+                                if (list.getElement().getTypeSubject() == 0) {
+                                    countInDay = 1;
+                                    countInWeek = 2;
+                                } else {
+                                    countInDay = 2;
+                                    countInWeek = 1;
+                                }
+                                break;
+                            case 50:
+                                countInDay = 1;
+                                countInWeek = 1;
+                                break;
+                        }
+                    } else {
+                        if (element.contains(list.getElement())) {
+                            switch (checkLoad) {
+                                case 3:
+                                    countInDay = 1;
+                                    countInWeek = 2;
+                                    break;
+                                case 2:
+                                    equals = true;
+                                    break;
+                                case 1:
+                                    equals = true;
+                                    break;
+                                case 50:
+                                    equals = true;
+                                    break;
                             }
+                        }
+                    }
 
+
+                    /*if (!element.isEmpty()) {
+                        for (Element element1 : element) {
+//                            if (thisIsThreeLoad(element1, listClasses)) {
+//                                checkLoad = 3;
+//                            } else if (thisIsTwoLoad(element1, listClasses)) {
+//                                checkLoad = 2;
+//                            } else if (thisIsOneLoad(element1, listClasses)) {
+//                                checkLoad = 1;
+//                            } else if (thisIsHalfLoad(element1, listClasses)) {
+//                                checkLoad = 50;
+//                            }
+
+                            switch (checkLoad){
+                                case 3:
+                                    break;
+                                case 2:
+                                    if (checkEquals(element1, list.getElement())) {
+                                        // System.out.println("Same class found");
+                                        equals = true;
+                                        tempElems.clear();
+                                        tempElems.add(new TempElem(k, new Element(element1.getTeacher(), element1.getClassroom(), element1.getSubject(), element1.getGroup(), element1.getTypeSubject()), ++i, n));
+                                        break;
+                                    }
+                                case 1:
+                                    //повторяем занятие и отмечаем, что дальше не ставим
+                                    equals = true;
+                                    tempElems.clear();
+                                    tempElems.add(new TempElem(k, new Element(element1.getTeacher(), element1.getClassroom(), element1.getSubject(), element1.getGroup(), element1.getTypeSubject()), ++i, n));
+                                    break;
+                                case 50:
+                                    //ничего не делаем, только отмечаем, что не ставим
+                            }
                             if (checkEquals(element1, list.getElement())) {
                                 // System.out.println("Same class found");
                                 equals = true;
@@ -106,7 +180,7 @@ public class Main {
                                 break;
                             }
                         }
-                    }
+                    } */
                     if (equals) {
                         break;
                     }
@@ -115,7 +189,6 @@ public class Main {
                             for (Element element1 : element) {
                                 k = checkOverlap(element1, list.getElement(), classroom.get(h));
                                 if (k == 0 || k == 1) {
-                                    // System.out.println("n:" + n + ", i:" + i + ", k:" + k + ", class1:" + element1.getClassroom().getNumberClassroom() + ", h:" + classroom.get(h).getNumberClassroom());
                                     break;
                                 }
                             }
@@ -123,9 +196,8 @@ public class Main {
                         if (k == 0) break;
                         if (k == 1) continue;
 
-                        if (checkAud(null, classroom.get(h), list.getElement()) == 0) continue;
-
-
+                        t = checkAud(null, classroom.get(h), list.getElement());
+                        if (t == 0) continue;
 //                        if (!element.isEmpty()) {
 //                            for (Element element1 : element) {
 //                                t = checkAud(element1, classroom.get(h), list.getElement());
@@ -165,20 +237,28 @@ public class Main {
                         tempElems.add(new TempElem(k, new Element(list.getElement().getTeacher(), classroom.get(h), list.getElement().getSubject(), list.getElement().getGroup(), list.getElement().getTypeSubject()), i, n));
                     }
                 }
-                if (equals) {
-                    break;
-
-                }
-
+                if (equals) break;
             }
             if (equals) {
-                elem.put(new Timeslot(tempElems.get(0).getN(), tempElems.get(0).getI()), tempElems.get(0).getElement());
-                System.out.println(tempElems.get(0).getN() + " " + tempElems.get(0).getI() + " " + tempElems.get(0).getElement().toString());
+                continue;
+//                elem.put(new Timeslot(tempElems.get(0).getN(), tempElems.get(0).getI()), tempElems.get(0).getElement());
+//                System.out.println(tempElems.get(0).getN() + " " + tempElems.get(0).getI() + " " + tempElems.get(0).getElement().toString());
             } else {
                 //здесь находим самый большой R и записываем в element занятие
                 sortByR(tempElems);
                 elem.put(new Timeslot(tempElems.get(0).getN(), tempElems.get(0).getI()), tempElems.get(0).getElement());
-                System.out.println(tempElems.get(0).getN() + " " + tempElems.get(0).getI() + " " + tempElems.get(0).getElement().toString());
+                if (countInWeek == 2) {
+                    elem.put(new Timeslot(tempElems.get(0).getN() + 6, tempElems.get(0).getI()), tempElems.get(0).getElement());
+                    if (countInDay == 2) {
+                        elem.put(new Timeslot(tempElems.get(0).getN(), tempElems.get(0).getI() + 1), tempElems.get(0).getElement());
+                        elem.put(new Timeslot(tempElems.get(0).getN() + 6, tempElems.get(0).getI() + 1), tempElems.get(0).getElement());
+                    }
+                } else {
+                    if (countInDay == 2) {
+                        elem.put(new Timeslot(tempElems.get(0).getN(), tempElems.get(0).getI() + 1), tempElems.get(0).getElement());
+                    }
+                }
+               // System.out.println(tempElems.get(0).getN() + " " + tempElems.get(0).getI() + " " + tempElems.get(0).getElement().toString());
 
             }
         }
@@ -186,11 +266,11 @@ public class Main {
 
     private static boolean thisIsHalfLoad(Element element1, List<ListClasses> listClasses) {
 
-        for (Load loads : groups){
+        for (Load loads : groups) {
             for (ListClasses listClasses1 : listClasses) {
                 if (loads.getFlow() == listClasses1.getElement().getFlow() && loads.getTeacher() == listClasses1.getElement().getTeacher()
-                        && loads.getSubject() == listClasses1.getElement().getSubject() && loads.getTypeSubject() == listClasses1.getElement().getTypeSubject()){
-                    if (loads.getLoad() == 0.5){
+                        && loads.getSubject() == listClasses1.getElement().getSubject() && loads.getTypeSubject() == listClasses1.getElement().getTypeSubject()) {
+                    if (loads.getLoad() == 0.5) {
                         return true;
                     }
                 }
@@ -199,31 +279,12 @@ public class Main {
         return false;
     }
 
-    private static boolean thisIsOneLoad(Element element1, List<ListClasses> listClasses) {
+    private static int countLoad(Element element1, List<ListClasses> listClasses) {
         int i = 0;
         for (ListClasses listClasses1 : listClasses) {
             if (listClasses1.getElement().equals(element1)) i++;
         }
-        if (i == 1) return true;
-        else return false;
-    }
-
-    private static boolean thisIsTwoLoad(Element element1, List<ListClasses> listClasses) {
-        int i = 0;
-        for (ListClasses listClasses1 : listClasses) {
-            if (listClasses1.getElement().equals(element1)) i++;
-        }
-        if (i == 2) return true;
-        else return false;
-    }
-
-    private static boolean thisIsThreeLoad(Element element1, List<ListClasses> listClasses) {
-        int i = 0;
-        for (ListClasses listClasses1 : listClasses) {
-            if (listClasses1.getElement().equals(element1)) i++;
-        }
-        if (i == 3) return true;
-        else return false;
+        return i;
     }
 
 
@@ -243,6 +304,7 @@ public class Main {
         }
         return 1 * w;
     }
+
     private static boolean thisIsNotThree(Element element1, List<ListClasses> listClasses) {
         int i = 0;
         for (ListClasses listClasses1 : listClasses) {
@@ -252,20 +314,20 @@ public class Main {
         else return true;
     }
 
-      private static double checkAud(Element element, Classroom classroom, Element listElement) {
+    private static double checkAud(Element element, Classroom classroom, Element listElement) {
         int w = 10;
         double ret = 0;
-        if (element!=null && element.getClassroom().getNumberClassroom() == classroom.getNumberClassroom()) ret = 0;
+        if (element != null && element.getClassroom().getNumberClassroom() == classroom.getNumberClassroom()) ret = 0;
         else {
             if (listElement.getClassroom().getTypeClassroom() == 0) {
                 if (classroom.getTypeClassroom() == 40 || classroom.getTypeClassroom() == 0) {
                     ret = 1 * w;
                 }
-            } else if (listElement.getClassroom().getTypeClassroom() == 2){
+            } else if (listElement.getClassroom().getTypeClassroom() == 2) {
                 if (classroom.getTypeClassroom() == 2 || classroom.getTypeClassroom() == 24) {
                     ret = 1 * w;
                 }
-            } else if (listElement.getClassroom().getTypeClassroom() == 40){
+            } else if (listElement.getClassroom().getTypeClassroom() == 40) {
                 if (classroom.getTypeClassroom() == 40) {
                     ret = 1 * w;
                 }
