@@ -8,12 +8,14 @@ public class Requirements {
 //    private String teacher;
     private int typeSubject; // 0 - lecture; 1 - practice 2- lab
     private int requirment;  // 1 - lecture class; 2 computer class; 3 practice class; 4 - проектор; 13 - no requirment
+    private int numberHull; //0 - главный корпус, кронверский, 1 - ломоносова, 2 - гривцова, 3 - биржевая
 
-    public Requirements(String subject, /*String teacher,*/ int typeSubject, int requirment) {
+    public Requirements(String subject, /*String teacher,*/ int typeSubject, int requirment, int numberHull) {
         this.subject = subject;
 //        this.teacher = teacher;
         this.typeSubject = typeSubject;
         this.requirment = requirment;
+        this.numberHull = numberHull;
     }
 
     public String getSubject() {
@@ -46,5 +48,13 @@ public class Requirements {
 
     public void setRequirment(int requirment) {
         this.requirment = requirment;
+    }
+
+    public int getNumberHull() {
+        return numberHull;
+    }
+
+    public void setNumberHull(int numberHull) {
+        this.numberHull = numberHull;
     }
 }

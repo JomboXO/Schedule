@@ -179,4 +179,22 @@
             </teacher>
         </teachers>
     </subject>
+    <subject name="Мировые информационные ресурсы">
+        <groups>
+            <group>W3107</group>
+        </groups>
+        <hoursLec>18</hoursLec>
+        <hoursLab>18</hoursLab>
+        <hoursPrac>0</hoursPrac>
+        <teachers>
+            <teacher name="Селина Е.Г.">
+                <groups>
+                    <group>W3107</group>
+                </groups>
+                <lecture>18</lecture>
+                <practice>0</practice>
+                <lab>18</lab>
+            </teacher>
+        </teachers>
+    </subject>
 </loads>

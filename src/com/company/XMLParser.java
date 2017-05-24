@@ -187,7 +187,9 @@ public class XMLParser {
     }
 
     private static int SetFlow(List<Group> nn, List<Flow> flows) {
+
         if (!flows.isEmpty()) {
+            flowNumber = flows.get(flows.size()-1).getNumberFlow();
             boolean bool = false;
             for (int i = 0; i < flows.size(); i++) {
                 if (flows.get(i).getGroupList().equals(nn)) {
