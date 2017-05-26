@@ -33,33 +33,33 @@ public class Main {
 
         requirementses.add(new Requirements("Введение в специальность", 0, 13, 0));
         requirementses.add(new Requirements("Вычисление с использованием пакета MathCad", 0, 4, 0));
-        requirementses.add(new Requirements("Дискретная математика", 0, 13,0));
-        requirementses.add(new Requirements("Введение в специальность", 1, 13,0));
-        requirementses.add(new Requirements("Вычисление с использованием пакета MathCad", 2, 2,0));
-        requirementses.add(new Requirements("Дискретная математика", 1, 13,0));
+        requirementses.add(new Requirements("Дискретная математика", 0, 13, 0));
+        requirementses.add(new Requirements("Введение в специальность", 1, 13, 0));
+        requirementses.add(new Requirements("Вычисление с использованием пакета MathCad", 2, 2, 0));
+        requirementses.add(new Requirements("Дискретная математика", 1, 13, 0));
 
-        requirementses.add(new Requirements("Информатика", 0, 4,0));
-        requirementses.add(new Requirements("Программирование", 0, 4,0));
-        requirementses.add(new Requirements("Языки и парадигмы программирования", 0, 4,0));
-        requirementses.add(new Requirements("Информатика", 1, 2,0));
-        requirementses.add(new Requirements("Программирование", 2, 2,0));
-        requirementses.add(new Requirements("Языки и парадигмы программирования", 2, 2,0));
+        requirementses.add(new Requirements("Информатика", 0, 4, 0));
+        requirementses.add(new Requirements("Программирование", 0, 4, 0));
+        requirementses.add(new Requirements("Языки и парадигмы программирования", 0, 4, 0));
+        requirementses.add(new Requirements("Информатика", 1, 2, 0));
+        requirementses.add(new Requirements("Программирование", 2, 2, 0));
+        requirementses.add(new Requirements("Языки и парадигмы программирования", 2, 2, 0));
 
         requirementses.add(new Requirements("Мировые информационные ресурсы", 0, 13, 1));
         requirementses.add(new Requirements("Мировые информационные ресурсы", 2, 2, 1));
 
-        classroom.add(new Classroom(40, 302, 0, 100));
-        classroom.add(new Classroom(40, 359, 0, 50));
-        classroom.add(new Classroom(40, 285, 0, 80));
-        classroom.add(new Classroom(40, 403, 0, 70));
-        classroom.add(new Classroom(40, 466, 0, 80));
+        classroom.add(new Classroom(4, 302, 0, 100));
+        classroom.add(new Classroom(4, 359, 0, 50));
+        classroom.add(new Classroom(4, 285, 0, 80));
+        classroom.add(new Classroom(4, 403, 0, 70));
+        classroom.add(new Classroom(4, 466, 0, 80));
 
         classroom.add(new Classroom(24, 303, 0, 30));
         classroom.add(new Classroom(2, 304, 0, 30));
         classroom.add(new Classroom(2, 305, 0, 30));
         classroom.add(new Classroom(2, 306, 0, 30));
 
-        classroom.add(new Classroom(40, 102, 1, 90));
+        classroom.add(new Classroom(4, 102, 1, 90));
         classroom.add(new Classroom(24, 103, 1, 30));
         classroom.add(new Classroom(24, 104, 1, 30));
         classroom.add(new Classroom(24, 105, 1, 30));
@@ -69,9 +69,9 @@ public class Main {
         sortByS(listClasses);
         doSchedule();
         printElements();
-        for (int i = 0; i < flows.size(); i++){
-            System.out.print("Номер потока "+ flows.get(i).getNumberFlow()+ "  ");
-            for (int j = 0; j < flows.get(i).getGroupList().size(); j++){
+        for (int i = 0; i < flows.size(); i++) {
+            System.out.print("Номер потока " + flows.get(i).getNumberFlow() + "  ");
+            for (int j = 0; j < flows.get(i).getGroupList().size(); j++) {
                 System.out.print(flows.get(i).getGroupList().get(j) + "  ");
             }
             System.out.println(); //два раза поток номер 5, с разными группами, это в xmlparser
@@ -170,10 +170,10 @@ public class Main {
                         if (k == 0) break;
                         if (k == 1) continue;
 
-                        if (classroom.get(h).getNumberHull() != list.getElement().getClassroom().getNumberHull()){
+                        if (classroom.get(h).getNumberHull() != list.getElement().getClassroom().getNumberHull()) {
                             continue;
                         }
-                        t = checkAud(null, classroom.get(h), list.getElement());
+                        t = checkAud(classroom.get(h), list.getElement());
                         if (t == 0) continue;
 
                         k = k + t;
@@ -181,7 +181,7 @@ public class Main {
 //                        k = k + t;
                         double t2 = checkWindowForTeachers(n, i, list.getElement());
 //                        if (t1 != t2)
-                        k = k + t1+t2;
+                        k = k + t1 + t2;
                         t = countClassesForFlow(n, list.getElement().getFlow());
                         k = k + t;
                         tempElems.add(new TempElem(k, new Element(list.getElement().getTeacher(), classroom.get(h), list.getElement().getSubject(), list.getElement().getGroup(), list.getElement().getTypeSubject()), i, n));
@@ -208,7 +208,7 @@ public class Main {
                         elem.put(new Timeslot(tempElems.get(0).getN(), tempElems.get(0).getI() + 1), tempElems.get(0).getElement());
                     }
                 }
-               // System.out.println(tempElems.get(0).getN() + " " + tempElems.get(0).getI() + " " + tempElems.get(0).getElement().toString());
+                // System.out.println(tempElems.get(0).getN() + " " + tempElems.get(0).getI() + " " + tempElems.get(0).getElement().toString());
 
             }
         }
@@ -264,34 +264,49 @@ public class Main {
         else return true;
     }
 
-    private static double checkAud(Element element, Classroom classroom, Element listElement) {
+    private static double checkAud(Classroom classroom, Element listElement) {
         int w = 10;
         double ret = 0;
-        if (element != null && element.getClassroom().getNumberClassroom() == classroom.getNumberClassroom()) ret = 0;
-        else {
-            if (listElement.getClassroom().getTypeClassroom() == 0) {
-                if (classroom.getTypeClassroom() == 40 || classroom.getTypeClassroom() == 0) {
-                    ret = 1 * w;
-                }
-            } else if (listElement.getClassroom().getTypeClassroom() == 2) {
-                if (classroom.getTypeClassroom() == 2 || classroom.getTypeClassroom() == 24) {
-                    ret = 1 * w;
-                }
-            } else if (listElement.getClassroom().getTypeClassroom() == 40) {
-                if (classroom.getTypeClassroom() == 40) {
-                    ret = 1 * w;
-                }
-            } else if (listElement.getClassroom().getTypeClassroom() == 24) {
-                if (classroom.getTypeClassroom() == 24) {
-                    ret = 1 * w;
-                }
+        if (listElement.getClassroom().getTypeClassroom() == 0) {
+            if (classroom.getTypeClassroom() == 4 || classroom.getTypeClassroom() == 0) {
+                ret = checkCapacity(classroom, listElement.getFlow()) * w;
             }
-//            if (listElement.getClassroom().getTypeClassroom() == classroom.getTypeClassroom()) { /* по типу совпадают, значит подходит.
-//                                                                                (в element.classroom.typeClassroom хранится
-//                                                                                 рекомендация, какого типа должна быть аудитория)*/
-//                ret = 1 * w;
-//
-//            } else ret = 0;
+        } else if (listElement.getClassroom().getTypeClassroom() == 2) {
+            if (classroom.getTypeClassroom() == 2 || classroom.getTypeClassroom() == 24) {
+                ret = checkCapacity(classroom, listElement.getFlow()) * w;
+            }
+        } else if (listElement.getClassroom().getTypeClassroom() == 4) {
+            if (classroom.getTypeClassroom() == 4) {
+                ret = checkCapacity(classroom, listElement.getFlow()) * w;
+            }
+        } else if (listElement.getClassroom().getTypeClassroom() == 24) {
+            if (classroom.getTypeClassroom() == 24) {
+                ret = checkCapacity(classroom, listElement.getFlow()) * w;
+            }
+        }
+        return ret;
+    }
+
+    private static double checkCapacity(Classroom classroom, int flow) {
+        int c = getFlowCount(flow);
+        if (classroom.getCapacity() >= c){
+            if (classroom.getCapacity() - c > 20){
+                return 0.6;
+            }else {
+                return 1;
+            }
+        }else {
+            return 0;
+        }
+    }
+
+    private static int getFlowCount(int flow) {
+        int ret = 0;
+        for (Flow fl : flows){
+            if (fl.getNumberFlow() == flow){
+                ret = fl.getCountPeople();
+                break;
+            }
         }
         return ret;
     }
@@ -401,7 +416,7 @@ public class Main {
     private static double checkWindowForTeachers(int nn, int ii, Element element) {
         int w = 2;
         double k = 0;
-        boolean hull= false;
+        boolean hull = false;
         Element el = null;
         Timeslot key;
         for (int i = 0; i < p; i++) {
@@ -409,9 +424,9 @@ public class Main {
             if (elem.containsKey(key)) el = elem.get(key);
             if (el != null) {
                 if (!el.equals(element)) {
-                    if (el.getClassroom().getNumberHull() == element.getClassroom().getNumberHull()){
+                    if (el.getClassroom().getNumberHull() == element.getClassroom().getNumberHull()) {
                         hull = false;
-                    }else hull = true;
+                    } else hull = true;
                     if (el.getTeacher().equals(element.getTeacher())) {
                         if (ii > i && ii - i > 1 || ii < i && i - ii > 1) {
                             k = 2; // окно в 2 и более пары
@@ -426,7 +441,7 @@ public class Main {
                     k = 0;
                     break;
                 }
-            }else {
+            } else {
                 if (k == 0) break;
             }
         }
@@ -434,7 +449,7 @@ public class Main {
             if (k > 1) k = 0;
             else if (k == 1) k = 0.5;
             else k = 1;
-        }else {
+        } else {
             if (k == 2) k = 0.2;
         }
         return k * w;
@@ -465,9 +480,9 @@ public class Main {
                     //двух пар окно - тогда возвращаем значение, как 0
                     for (int l = 0; l < elFlow.size(); l++) {
                         for (int f = 0; f < elementFlow.size(); f++) {
-                            if (el.getClassroom().getNumberHull() == element.getClassroom().getNumberHull()){
+                            if (el.getClassroom().getNumberHull() == element.getClassroom().getNumberHull()) {
                                 hull = false;
-                            }else hull = true;
+                            } else hull = true;
                             if (elementFlow.get(f).getGroup().equals(elFlow.get(l).getGroup())) {
                                 if (ii > i && ii - i > 1 || ii < i && i - ii > 1) {
                                     k = 2; // окно в 2 и более пары
@@ -484,7 +499,7 @@ public class Main {
                     k = 0;
                     break;
                 }
-            }else {
+            } else {
                 if (k == 0) break;
             }
         }
@@ -492,7 +507,7 @@ public class Main {
             if (k > 1) k = 0;
             else if (k == 1) k = 0.5;
             else k = 1;
-        }else {
+        } else {
             if (k == 2) k = 0.2;
 
         }
