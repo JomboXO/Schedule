@@ -6,8 +6,9 @@ package com.company.Entity;
 public class Classroom {
     private int numberClassroom;
     private int numberHull; // 0 - главный корпус, кронверский, 1 - ломоносова, 2 - гривцова, 3 - биржевая
-    private int typeClassroom; // 0 - lecture; 2 - computer class; 3 - practice class; 24 - компьютерный класс с проектором
-  // 40 - лекционный с проектором
+    private int typeClassroom; // 0 - просто аудитория; 2 - компьютерный класс; 24 - компьютерный класс с проектором
+  // 4 - аудитория с проектором
+    private int capacity; //количество мест в аудитории
 
     /*устанавливаем сюда номер типа, чтобы потом по типу аудитории определить подходящюю*/
     public Classroom(int typeClassroom,int numberHull) {
@@ -15,10 +16,11 @@ public class Classroom {
         this.numberHull = numberHull;
     }
 
-    public Classroom(int typeClassroom,int numberClassroom, int numberHull) {
+    public Classroom(int typeClassroom,int numberClassroom, int numberHull, int capacity) {
         this.typeClassroom = typeClassroom;
         this.numberClassroom = numberClassroom;
         this.numberHull = numberHull;
+        this.capacity = capacity;
     }
     public int getNumberHull() {
         return numberHull;
@@ -62,5 +64,13 @@ public class Classroom {
             else
                 return false;
         }
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
     }
 }

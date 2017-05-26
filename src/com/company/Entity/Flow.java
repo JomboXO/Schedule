@@ -8,10 +8,12 @@ import java.util.List;
 public class Flow {
     private int numberFlow;
     private List<Group> groupList;
+    private int countPeople;
 
-    public Flow(int numberFlow, List<Group> groupList) {
+    public Flow(int numberFlow, List<Group> groupList, int countPeople) {
         this.numberFlow = numberFlow;
         this.groupList = groupList;
+        this.countPeople = countPeople;
     }
 
     public int getNumberFlow() {
@@ -50,4 +52,11 @@ public class Flow {
         }
     }
 
+    public int getCountPeople() {
+        return countPeople;
+    }
+
+    public void setCountPeople(int countPeople) {
+        this.countPeople = countPeople;
+    }
 }

@@ -54,7 +54,10 @@ public class XMLParser {
                         Element element1 = (Element) node11;
                         NodeList gr = element1.getElementsByTagName("group");
                         for (int f = 0; f < gr.getLength(); f++) {
-                            Group group = new Group(element1.getElementsByTagName("group").item(f).getTextContent());
+                            Node nnn = gr.item(f);
+                            Element e = (Element) nnn;
+                            String ss = e.getAttribute("people");
+                            Group group = new Group(element1.getElementsByTagName("group").item(f).getTextContent(), ss);
                             n.add(group);
                         }
                     }
@@ -82,7 +85,10 @@ public class XMLParser {
                                     NodeList gr = element1.getElementsByTagName("group");
                                     n = new ArrayList<>();
                                     for (int f = 0; f < gr.getLength(); f++) {
-                                        Group group = new Group(element1.getElementsByTagName("group").item(f).getTextContent());
+                                        Node nnn = gr.item(f);
+                                        Element e = (Element) nnn;
+                                        String ss = e.getAttribute("people");
+                                        Group group = new Group(element1.getElementsByTagName("group").item(f).getTextContent(), ss);
                                         n.add(group);
                                     }
                                 }
@@ -200,12 +206,21 @@ public class XMLParser {
             }
             if (!bool) {
                 flowNumber++;
-                flows.add(new Flow(flowNumber, nn));
+                flows.add(new Flow(flowNumber, nn, countPeopleInFlow(nn)));
             }
         } else {
             flowNumber++;
-            flows.add(new Flow(flowNumber, nn));
+            flows.add(new Flow(flowNumber, nn, countPeopleInFlow(nn)));
         }
         return flowNumber;
     }
+
+    private static int countPeopleInFlow(List<Group> nn) {
+        int ret = 0;
+        for (Group group : nn){
+            ret = ret + Integer.parseInt(group.getCountPeople());
+        }
+        return ret;
+    }
+
 }

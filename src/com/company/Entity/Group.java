@@ -1,12 +1,14 @@
 package com.company.Entity;
 
 /**
- * Created by Татьяна on 13.05.2017.
+ * Created by пїЅпїЅпїЅпїЅпїЅпїЅпїЅ on 13.05.2017.
  */
 public class Group {
     private String group;
+    private String countPeople;
 
-    public Group(String group) {
+    public Group(String group, String countPeople) {
+        this.countPeople = countPeople;
         this.group = group;
     }
 
@@ -21,11 +23,11 @@ public class Group {
     public boolean equals(Object obj) {
         if (obj == this)
             return true;
-        /* obj ссылается на null */
+        /* obj пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ null */
 
         if(obj == null)
             return false;
-         /* Удостоверимся, что ссылки имеют тот же самый тип */
+         /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ */
 
         if(!(getClass() == obj.getClass()))
             return false;
@@ -44,5 +46,13 @@ public class Group {
         return "Group{" +
                 "group='" + group + '\'' +
                 '}';
+    }
+
+    public String getCountPeople() {
+        return countPeople;
+    }
+
+    public void setCountPeople(String countPeople) {
+        this.countPeople = countPeople;
     }
 }

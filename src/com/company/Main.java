@@ -48,22 +48,22 @@ public class Main {
         requirementses.add(new Requirements("Мировые информационные ресурсы", 0, 13, 1));
         requirementses.add(new Requirements("Мировые информационные ресурсы", 2, 2, 1));
 
-        classroom.add(new Classroom(40, 302, 0));
-        classroom.add(new Classroom(40, 359, 0));
-        classroom.add(new Classroom(40, 285, 0));
-        classroom.add(new Classroom(40, 403, 0));
-        classroom.add(new Classroom(40, 466, 0));
+        classroom.add(new Classroom(40, 302, 0, 100));
+        classroom.add(new Classroom(40, 359, 0, 50));
+        classroom.add(new Classroom(40, 285, 0, 80));
+        classroom.add(new Classroom(40, 403, 0, 70));
+        classroom.add(new Classroom(40, 466, 0, 80));
 
-        classroom.add(new Classroom(24, 303, 0));
-        classroom.add(new Classroom(2, 304, 0));
-        classroom.add(new Classroom(2, 305, 0));
-        classroom.add(new Classroom(2, 306, 0));
+        classroom.add(new Classroom(24, 303, 0, 30));
+        classroom.add(new Classroom(2, 304, 0, 30));
+        classroom.add(new Classroom(2, 305, 0, 30));
+        classroom.add(new Classroom(2, 306, 0, 30));
 
-        classroom.add(new Classroom(40, 102, 1));
-        classroom.add(new Classroom(24, 103, 1));
-        classroom.add(new Classroom(24, 104, 1));
-        classroom.add(new Classroom(24, 105, 1));
-        classroom.add(new Classroom(24, 106, 1));
+        classroom.add(new Classroom(40, 102, 1, 90));
+        classroom.add(new Classroom(24, 103, 1, 30));
+        classroom.add(new Classroom(24, 104, 1, 30));
+        classroom.add(new Classroom(24, 105, 1, 30));
+        classroom.add(new Classroom(24, 106, 1, 30));
 
         SetListClasses.getListClasses(requirementses, groups, classroom, listClasses, flows);
         sortByS(listClasses);

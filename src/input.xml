@@ -2,9 +2,9 @@
 <loads>
     <subject name="Введение в специальность">
         <groups>
-            <group>P3117</group>
-            <group>P3118</group>
-            <group>P3119</group>
+            <group people="25">P3117</group>
+            <group people="25">P3118</group>
+            <group people="25">P3119</group>
         </groups>
         <hoursLec>12</hoursLec>
         <hoursLab>0</hoursLab>
@@ -12,9 +12,9 @@
         <teachers>
             <teacher name="Лаздин А.В.">
                 <groups>
-                    <group>P3117</group>
-                    <group>P3118</group>
-                    <group>P3119</group>
+                    <group people="25">P3117</group>
+                    <group people="25">P3118</group>
+                    <group people="25">P3119</group>
                 </groups>
                 <lecture>12</lecture>
                 <practice>102</practice>
@@ -24,8 +24,8 @@
     </subject>
     <subject name="Вычисление с использованием пакета MathCad">
         <groups>
-            <group>T3135</group>
-            <group>T3137</group>
+            <group people="15">T3135</group>
+            <group people="15">T3137</group>
         </groups>
         <hoursLec>16</hoursLec>
         <hoursLab>16</hoursLab>
@@ -33,8 +33,8 @@
         <teachers>
             <teacher name="Кудашов В.Н.">
                 <groups>
-                    <group>T3135</group>
-                    <group>T3137</group>
+                    <group people="15">T3135</group>
+                    <group people="15">T3137</group>
                 </groups>
                 <lecture>16</lecture>
                 <practice>0</practice>
@@ -44,9 +44,9 @@
     </subject>
     <subject name="Дискретная математика">
         <groups>
-            <group>P3117</group>
-            <group>P3118</group>
-            <group>P3119</group>
+            <group people="25">P3117</group>
+            <group people="25">P3118</group>
+            <group people="25">P3119</group>
         </groups>
         <hoursLec>16</hoursLec>
         <hoursLab>0</hoursLab>
@@ -54,9 +54,9 @@
         <teachers>
             <teacher name="Раков С.В.">
                 <groups>
-                    <group>P3117</group>
-                    <group>P3118</group>
-                    <group>P3119</group>
+                    <group people="25">P3117</group>
+                    <group people="25">P3118</group>
+                    <group people="25">P3119</group>
                 </groups>
                 <lecture>16</lecture>
                 <practice>102</practice>
@@ -66,7 +66,7 @@
     </subject>
     <subject name="Информатика">
         <groups>
-            <group>B5108</group>
+            <group people="6">B5108</group>
         </groups>
         <hoursLec>34</hoursLec>
         <hoursLab>0</hoursLab>
@@ -74,7 +74,7 @@
         <teachers>
             <teacher name="Раков С.В.">
                 <groups>
-                    <group>B5108</group>
+                    <group people="6">B5108</group>
                 </groups>
                 <lecture>34</lecture>
                 <practice>0</practice>
@@ -82,7 +82,7 @@
             </teacher>
             <teacher name="Рудникова Т.В.">
                 <groups>
-                    <group>B5108</group>
+                    <group people="6">B5108</group>
                 </groups>
                 <lecture>0</lecture>
                 <practice>51</practice>
@@ -92,11 +92,11 @@
     </subject>
     <subject name="Информатика">
         <groups>
-            <group>P3135</group>
-            <group>P3136</group>
-            <group>P3140</group>
-            <group>P3145</group>
-            <group>P3177</group>
+            <group people="20">P3135</group>
+            <group people="16">P3136</group>
+            <group people="20">P3140</group>
+            <group people="21">P3145</group>
+            <group people="18">P3177</group>
         </groups>
         <hoursLec>32</hoursLec>
         <hoursLab>0</hoursLab>
@@ -104,11 +104,11 @@
         <teachers>
             <teacher name="Раков С.В.">
                 <groups>
-                    <group>P3135</group>
-                    <group>P3136</group>
-                    <group>P3140</group>
-                    <group>P3145</group>
-                    <group>P3177</group>
+                    <group people="20">P3135</group>
+                    <group people="16">P3136</group>
+                    <group people="20">P3140</group>
+                    <group people="21">P3145</group>
+                    <group people="18">P3177</group>
                 </groups>
                 <lecture>32</lecture>
                 <practice>0</practice>
@@ -116,9 +116,9 @@
             </teacher>
             <teacher name="Евгеньева Е.Л.">
                 <groups>
-                    <group>P3136</group>
-                    <group>P3145</group>
-                    <group>P3177</group>
+                    <group people="16">P3136</group>
+                    <group people="21">P3145</group>
+                    <group people="18">P3177</group>
                 </groups>
                 <lecture>0</lecture>
                 <practice>102</practice>
@@ -126,8 +126,8 @@
             </teacher>
             <teacher name="Рудникова Т.В.">
                 <groups>
-                    <group>P3135</group>
-                    <group>P3140</group>
+                    <group people="20">P3135</group>
+                    <group people="20">P3140</group>
                 </groups>
                 <lecture>0</lecture>
                 <practice>68</practice>
@@ -137,9 +137,9 @@
     </subject>
     <subject name="Программирование">
         <groups>
-            <group>P3117</group>
-            <group>P3118</group>
-            <group>P3119</group>
+            <group people="25">P3117</group>
+            <group people="25">P3118</group>
+            <group people="25">P3119</group>
         </groups>
         <hoursLec>16</hoursLec>
         <hoursLab>34</hoursLab>
@@ -147,9 +147,9 @@
         <teachers>
             <teacher name="Логинов И.П.">
                 <groups>
-                    <group>P3117</group>
-                    <group>P3118</group>
-                    <group>P3119</group>
+                    <group people="25">P3117</group>
+                    <group people="25">P3118</group>
+                    <group people="25">P3119</group>
                 </groups>
                 <lecture>16</lecture>
                 <practice>0</practice>
@@ -159,9 +159,9 @@
     </subject>
     <subject name="Языки и парадигмы программирования">
         <groups>
-            <group>P3117</group>
-            <group>P3118</group>
-            <group>P3119</group>
+            <group people="25">P3117</group>
+            <group people="25">P3118</group>
+            <group people="25">P3119</group>
         </groups>
         <hoursLec>16</hoursLec>
         <hoursLab>34</hoursLab>
@@ -169,9 +169,9 @@
         <teachers>
             <teacher name="Логинов И.П.">
                 <groups>
-                    <group>P3117</group>
-                    <group>P3118</group>
-                    <group>P3119</group>
+                    <group people="25">P3117</group>
+                    <group people="25">P3118</group>
+                    <group people="25">P3119</group>
                 </groups>
                 <lecture>16</lecture>
                 <practice>0</practice>
@@ -181,7 +181,7 @@
     </subject>
     <subject name="Мировые информационные ресурсы">
         <groups>
-            <group>W3107</group>
+            <group people="15">W3107</group>
         </groups>
         <hoursLec>18</hoursLec>
         <hoursLab>18</hoursLab>
@@ -189,7 +189,7 @@
         <teachers>
             <teacher name="Селина Е.Г.">
                 <groups>
-                    <group>W3107</group>
+                    <group people="15">W3107</group>
                 </groups>
                 <lecture>18</lecture>
                 <practice>0</practice>
